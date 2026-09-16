@@ -3,7 +3,7 @@ package models
 
 import (
 	
-		"fmt"
+	
 		"time"
 		"gorm.io/gorm"
 		"github.com/teris-io/shortid"
@@ -40,7 +40,7 @@ var (
 		"Seafood",}
 
 
-	pizzaSize =[] string{
+	PizzaSize =[] string{
 		"Small",
 		"Medium",
 		"Large",
@@ -51,7 +51,7 @@ var (
 	//  creating the struct and Struct are the same as the object in the java
 
 	type OrderModel struct {
-		BD *gorm.DB
+		DB *gorm.DB
 
 	}
 
@@ -94,14 +94,14 @@ func (oi *OrderItem) BeforeCreated(tx *gorm.DB) error{
 func (o *OrderModel) CreateOrder(order *Order) error {
 	//  checking the order status and if the order status is not in the order status slice then it will return an error
 	
-	return o.BD.Create(order).Error
+	return o.DB.Create(order).Error
 }
 
 func (o *OrderModel) GetOrder (id string)(*Order, error) {
 	//  checking the order status and if the order status is not in the order status slice then it will return an error
 	
 	var order Order
-	err :=o.BD.Preload("Items").First(&order, "id = ?",id).Error
+	err :=o.DB.Preload("Items").First(&order, "id = ?",id).Error
 	return &order, err
 
 	
